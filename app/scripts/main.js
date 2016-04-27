@@ -21,7 +21,13 @@ socket.on('reconnect_attempt', function() {
 });
 
 
+var _BIASED = "biased";
+var _UNBIASED = "unbiased";
 socket.on('selection', function (data) {
-  console.log(data);
+  if(data.type == _BIASED) {
+    // do biased logic...
+  } else {
+    // do unbiased logic...
+  }
   $log.append("<p>Pressed: "+data.type+"</p>");
 });
