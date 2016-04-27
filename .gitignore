@@ -1,5 +1,5 @@
 node_modules
-dist
+#dist
 .tmp
 .sass-cache
 bower_components
@@ -127,3 +127,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.idea/
