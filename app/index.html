@@ -20,9 +20,12 @@
 
   </head>
   <body>
-    <div class="connection-status" id="cStatus">...</div>
+    <div class="connection-status" id="status">...</div>
     <div class="hero-unit">
       <h1>OpenNews</h1>
+      <div id="log">
+
+      </div>
     </div>
 
 
@@ -30,6 +33,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/socket.io-client/socket.io.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
