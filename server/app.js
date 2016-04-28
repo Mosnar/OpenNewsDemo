@@ -1,14 +1,14 @@
 var io = require('socket.io')(8000);
-var GPIO = require('onoff').Gpio;
-var EventEmitter = require("events").EventEmitter;
+// var GPIO = require('onoff').Gpio;
+// var EventEmitter = require("events").EventEmitter;
 
 var ee = new EventEmitter();
 
-var btnBiased = new GPIO(5, 'in', 'both');
-var btnUnbiased = new GPIO(6, 'in', 'both');
+// var btnBiased = new GPIO(5, 'in', 'both');
+// var btnUnbiased = new GPIO(6, 'in', 'both');
 
-btnBiased.watch(biasedPressed);
-btnUnbiased.watch(unbiasedPressed);
+// btnBiased.watch(biasedPressed);
+// btnUnbiased.watch(unbiasedPressed);
 
 function biasedPressed(err, state) {
   if (state == 1) {
@@ -27,6 +27,14 @@ function unbiasedPressed(err, state) {
 var quiz = io
   .of('/quiz')
   .on('connection', function (socket) {
+    socket.on('debug_press', function (data) {
+      if (data.type == "biased") {
+        ee.emit("bias_pressed");
+      } else {
+        ee.emit("unbiased_pressed");
+      }
+    });
+
     ee.on("bias_pressed", debounce(function () {
       socket.emit('selection', {
         type: 'biased'
