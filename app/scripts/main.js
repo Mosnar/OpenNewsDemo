@@ -110,6 +110,7 @@ $(function () {
   });
   socket.on('disconnect', function () {
     $status.text("Connection dropped");
+    setControlsDisabled(true);
     connectionAttempts = 0;
   });
   socket.on('reconnect_attempt', function () {
