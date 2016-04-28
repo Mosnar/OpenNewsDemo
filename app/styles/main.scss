@@ -1,5 +1,6 @@
 // bower:scss
 // endbower
+@import 'colors';
 
 body {
   background: #fafafa;
@@ -105,15 +106,18 @@ html {
   .passage {
     text-align: justify;
     .biased {
-      color: red;
+      color: $colorBias;
+      background-color: $bgColorBias;
       font-size: 20px;
     }
     .unbiased {
-      color: black;
+      color: $colorNoBias;
+      background-color: $bgColorNoBias;
       font-size: 20px;
     }
     .current {
-      color: blue;
+      color: $colorCurrent;
+      background-color: $bgColorCurrent;
       font-size: 30px;
     }
   }
@@ -128,13 +132,13 @@ MPQASENT[autoclass1="obj"] MPQASENT[autoclass2="obj"] {
 }
 
 MPQASENT[autoclass1="subj"] MPQASENT[autoclass2="subj"] {
-  color: firebrick !important;
+  //color: firebrick !important;
 }
 
 MPQASENT[autoclass1="obj"], MPQASENT[autoclass2="obj"] {
-  color: #000;
+  //color: #000;
 }
 
 MPQASENT[autoclass1="subj"], MPQASENT[autoclass2="subj"] {
-  color: #cc0000;
+  //color: #cc0000;
 }

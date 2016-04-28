@@ -93,7 +93,7 @@ $(function () {
       $el.addClass('biased');
     }
     quizPos++;
-    if(elNext) {
+    if (elNext) {
       $elNext.show();
       $elNext.addClass('current');
     } else {
@@ -118,20 +118,16 @@ $(function () {
     $status.text("Reattempting connection... " + connectionAttempts);
   });
 
-
   var _BIASED = "biased";
   var _UNBIASED = "unbiased";
   socket.on('selection', function (data) {
     if (data.type == _BIASED) {
       console.log("Got biased");
       progressQuiz(true);
-      // do biased logic...
     } else {
       console.log("Got unbiased");
       progressQuiz(false);
-      // do unbiased logic...
     }
-    // $log.append("<p>Pressed: " + data.type + "</p>");
   });
 
   $btnBiased.on('click', function () {
