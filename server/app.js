@@ -1,6 +1,6 @@
 var io = require('socket.io')(8000);
 // var GPIO = require('onoff').Gpio;
-// var EventEmitter = require("events").EventEmitter;
+var EventEmitter = require("events").EventEmitter;
 
 var ee = new EventEmitter();
 

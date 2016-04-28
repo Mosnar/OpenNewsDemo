@@ -1,38 +1,3 @@
-var socket = io.connect('http://localhost:8000/quiz');
-
-var $status = $("#status");
-var $log = $("#log");
-
-var connectionAttempts = 0;
-
-socket.on('connect', function () {
-  $status.text("Connected");
-});
-socket.on('error', function () {
-  $status.text("Failed to connect");
-});
-socket.on('disconnect', function () {
-  $status.text("Connection dropped");
-  connectionAttempts = 0;
-});
-socket.on('reconnect_attempt', function () {
-  connectionAttempts++;
-  $status.text("Reattempting connection... " + connectionAttempts);
-});
-
-
-var _BIASED = "biased";
-var _UNBIASED = "unbiased";
-socket.on('selection', function (data) {
-  if (data.type == _BIASED) {
-    // do biased logic...
-  } else {
-    // do unbiased logic...
-  }
-  $log.append("<p>Pressed: " + data.type + "</p>");
-});
-
-
 $(function () {
   var objective_statements = $("[autoclass2=obj]");
   var subjective_statements = $("[autoclass2=subj]");
@@ -51,58 +16,129 @@ $(function () {
     return isObjective;
   }
 
-// function for user prompt
-  function promptUser() {
-    var thinksBiased = prompt("Do you think the large blue phrase is biased? Enter y for yes and n for no", "");
-    // They think it's biased
-    if (thinksBiased.indexOf("y") != -1) {
-      var biasedBool = true;
-    }
-    else {
-      var biasedBool = false;
-    }
-    return biasedBool;
+// // function for user prompt
+//   function promptUser() {
+//     var thinksBiased = prompt("Do you think the large blue phrase is biased? Enter y for yes and n for no", "");
+//     // They think it's biased
+//     if (thinksBiased.indexOf("y") != -1) {
+//       var biasedBool = true;
+//     }
+//     else {
+//       var biasedBool = false;
+//     }
+//     return biasedBool;
+//   }
+
+  var quizPos = 0;
+
+  function startQuiz() {
+    var el = $(allSentimentBlocks).get(0);
+    var $el = $(el);
+    console.log($el);
+    $($el).show();
+    $($el).addClass('current');
   }
 
   /**
    * Starts iterating through MPQASENT blocks
    */
-  function startQuiz() {
-    $(allSentimentBlocks).each(function (index) {
-      $(this).show();
-      $(this).addClass('current');
+  function progressQuiz(biasedBool) {
+    var el = $(allSentimentBlocks).get(quizPos);
+    var elNext = $(allSentimentBlocks).get(quizPos + 1);
+    var $el = $(el);
+    var $elNext = $(elNext);
+
+    if (!el) {
+      return false;
+    }
+    // Call function to ask for userprompt
+    // var biasedBool = promptUser();
+    // give appropritate response
+    // Busy loop, this sux, but lol it's 12:45
 
 
-      // Call function to ask for userprompt
-      var biasedBool = promptUser();
-      // give appropritate response
-
-      if (isObjective($(this))) {
-        if (!biasedBool) {
-          var prompt = "You and the algorithm agree, ";
-        }
-        else {
-          var prompt = "You and the algorithm disagree, ";
-
-        }
-        alert(prompt + "it labels this is as objective!");
-        $(this).removeClass('current');
-        $(this).addClass('unbiased');
+    if (isObjective($el)) {
+      if (!biasedBool) {
+        var prompt = "You and the algorithm agree, ";
       }
       else {
-        if (biasedBool) {
-          var prompt = "You and the algorithm agree, ";
-        }
-        else {
-          var prompt = "You and the algorithm disagree, ";
+        var prompt = "You and the algorithm disagree, ";
 
-        }
-        alert(prompt + " it labels this as biased!");
-
-        $(this).removeClass('current');
-        $(this).addClass('biased');
       }
-    });
+      alert(prompt + "it labels this is as objective!");
+      $el.removeClass('current');
+      $el.addClass('unbiased');
+    }
+    else {
+      if (biasedBool) {
+        var prompt = "You and the algorithm agree, ";
+      }
+      else {
+        var prompt = "You and the algorithm disagree, ";
+
+      }
+      alert(prompt + " it labels this as biased!");
+
+      $el.removeClass('current');
+      $el.addClass('biased');
+    }
+    quizPos++;
+    if(elNext) {
+      $elNext.show();
+      $elNext.addClass('current');
+    }
   }
+
   startQuiz();
+
+
+  var socket = io.connect('http://localhost:8000/quiz');
+
+  var $status = $("#status");
+  var $log = $("#log");
+
+  var $btnBiased = $("#btnBiased");
+  var $btnUnbiased = $("#btnUnbiased");
+
+  var connectionAttempts = 0;
+
+
+  socket.on('connect', function () {
+    $status.text("Connected");
+  });
+  socket.on('error', function () {
+    $status.text("Failed to connect");
+  });
+  socket.on('disconnect', function () {
+    $status.text("Connection dropped");
+    connectionAttempts = 0;
+  });
+  socket.on('reconnect_attempt', function () {
+    connectionAttempts++;
+    $status.text("Reattempting connection... " + connectionAttempts);
+  });
+
+
+  var _BIASED = "biased";
+  var _UNBIASED = "unbiased";
+  socket.on('selection', function (data) {
+    if (data.type == _BIASED) {
+      console.log("Got biased");
+      progressQuiz(true);
+      // do biased logic...
+    } else {
+      console.log("Got unbiased");
+      progressQuiz(false);
+      // do unbiased logic...
+    }
+    // $log.append("<p>Pressed: " + data.type + "</p>");
+  });
+
+  $btnBiased.on('click', function () {
+    socket.emit('debug_press', {type: 'biased'});
+  });
+
+  $btnUnbiased.on('click', function () {
+    socket.emit('debug_press', {type: 'unbiased'});
+  });
 });

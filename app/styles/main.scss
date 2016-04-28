@@ -17,7 +17,7 @@ html {
 }
 
 .hero-unit {
-  margin: 0 auto 0 auto;
+  margin: 10px auto 0 90px;
   width: 90%;
   font-size: 18px;
   font-weight: 200;
@@ -31,8 +31,8 @@ html {
     line-height: 1;
     letter-spacing: -1px;
     font-weight: 200;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
   }
 
   h2 {
@@ -42,15 +42,55 @@ html {
   }
 }
 
+.controls {
+  margin-top:120px;
+  float: left;
+  position: fixed;
+  width: 75px;
+  button {
+    margin-top:10px;
+    width:100%;
+    text-transform: uppercase;
+    box-shadow: inset 0px -3px 7px 0 #29bbff;
+    background-color: #2dabf9;
+    border-radius: 3px;
+    border: 1px solid #0b0e07;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 10px 10px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #263666;
+    &:hover {
+      background-color: #0688fa;
+    }
+
+    &.biased {
+      box-shadow: inset 0px -3px 7px 0 #ff6374;
+      background-color: #f90023;
+      text-shadow: 0 1px 0 #263666;
+      &:hover {
+        background-color: #fa2947;
+      }
+    }
+
+    &:active {
+      position: relative;
+      top: 1px;
+    }
+  }
+}
+
 #log {
   p {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     line-height: 1.2;
   }
-  border-top:2px solid #222b2c;
-  margin-top:10px;
-  padding-top:10px;
+  border-top: 2px solid #222b2c;
+  margin-top: 10px;
+  padding-top: 10px;
 
   .passage {
     text-align: justify;
@@ -76,14 +116,15 @@ MPQASENT {
 MPQASENT[autoclass1="obj"] MPQASENT[autoclass2="obj"] {
   color: #000000 !important;
 }
+
 MPQASENT[autoclass1="subj"] MPQASENT[autoclass2="subj"] {
   color: firebrick !important;
 }
 
-MPQASENT[autoclass1="obj"],MPQASENT[autoclass2="obj"] {
+MPQASENT[autoclass1="obj"], MPQASENT[autoclass2="obj"] {
   color: #000;
 }
 
-MPQASENT[autoclass1="subj"],MPQASENT[autoclass2="subj"] {
+MPQASENT[autoclass1="subj"], MPQASENT[autoclass2="subj"] {
   color: #cc0000;
 }
