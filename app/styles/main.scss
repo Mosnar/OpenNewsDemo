@@ -43,13 +43,13 @@ html {
 }
 
 .controls {
-  margin-top:120px;
+  margin-top: 120px;
   float: left;
   position: fixed;
   width: 75px;
   button {
-    margin-top:10px;
-    width:100%;
+    margin-top: 10px;
+    width: 100%;
     text-transform: uppercase;
     box-shadow: inset 0px -3px 7px 0 #29bbff;
     background-color: #2dabf9;
@@ -72,6 +72,16 @@ html {
       text-shadow: 0 1px 0 #263666;
       &:hover {
         background-color: #fa2947;
+      }
+    }
+
+    &[disabled=disabled], &:disabled {
+      background-color: #130d4c;
+      box-shadow: none;
+      font-style: italic;
+      cursor: default;
+      &:hover {
+        background-color: #130d4c;
       }
     }
 

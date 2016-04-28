@@ -28,13 +28,28 @@ $(function () {
 //     }
 //     return biasedBool;
 //   }
+  var socket = io.connect('http://localhost:8000/quiz');
 
+  var $status = $("#status");
+  var $log = $("#log");
+
+  var $btnBiased = $("#btnBiased");
+  var $btnUnbiased = $("#btnUnbiased");
+
+  var connectionAttempts = 0;
   var quizPos = 0;
 
+  function setControlsDisabled(state) {
+    $btnBiased.prop("disabled", state);
+    $btnUnbiased.prop("disabled", state);
+  }
+
+  setControlsDisabled(true);
+
   function startQuiz() {
+    setControlsDisabled(false);
     var el = $(allSentimentBlocks).get(0);
     var $el = $(el);
-    console.log($el);
     $($el).show();
     $($el).addClass('current');
   }
@@ -51,11 +66,6 @@ $(function () {
     if (!el) {
       return false;
     }
-    // Call function to ask for userprompt
-    // var biasedBool = promptUser();
-    // give appropritate response
-    // Busy loop, this sux, but lol it's 12:45
-
 
     if (isObjective($el)) {
       if (!biasedBool) {
@@ -86,24 +96,13 @@ $(function () {
     if(elNext) {
       $elNext.show();
       $elNext.addClass('current');
+    } else {
+      setControlsDisabled(true);
     }
   }
 
-  startQuiz();
-
-
-  var socket = io.connect('http://localhost:8000/quiz');
-
-  var $status = $("#status");
-  var $log = $("#log");
-
-  var $btnBiased = $("#btnBiased");
-  var $btnUnbiased = $("#btnUnbiased");
-
-  var connectionAttempts = 0;
-
-
   socket.on('connect', function () {
+    startQuiz();
     $status.text("Connected");
   });
   socket.on('error', function () {
