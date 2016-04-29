@@ -1,4 +1,22 @@
 $(function () {
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-center",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "3500",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
+
   var objective_statements = $("[autoclass2=obj]");
   var subjective_statements = $("[autoclass2=subj]");
   var allSentimentBlocks = $("MPQASENT");
@@ -67,28 +85,27 @@ $(function () {
       return false;
     }
 
+    var prompt = "";
     if (isObjective($el)) {
       if (!biasedBool) {
-        var prompt = "You and the algorithm agree, ";
+        prompt = "You and the algorithm agree, ";
       }
       else {
-        var prompt = "You and the algorithm disagree, ";
+        prompt = "You and the algorithm disagree, ";
 
       }
-      alert(prompt + "it labels this is as objective!");
+      toastr["success"](prompt + "it labels this is as objective!");
       $el.removeClass('current');
       $el.addClass('unbiased');
     }
     else {
       if (biasedBool) {
-        var prompt = "You and the algorithm agree, ";
+        prompt = "You and the algorithm agree, ";
       }
       else {
-        var prompt = "You and the algorithm disagree, ";
-
+        prompt = "You and the algorithm disagree, ";
       }
-      alert(prompt + " it labels this as biased!");
-
+      toastr["error"](prompt + " it labels this as biased!");
       $el.removeClass('current');
       $el.addClass('biased');
     }
