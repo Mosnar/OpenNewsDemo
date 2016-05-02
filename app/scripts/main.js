@@ -145,7 +145,7 @@ $(function () {
       console.log("Got unbiased");
       progressQuiz(false);
     }
-  },1000));
+  },50));
 
   $btnBiased.on('click', function () {
     socket.emit('debug_press', {type: 'biased'});

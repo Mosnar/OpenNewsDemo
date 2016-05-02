@@ -45,12 +45,12 @@ var quiz = io
       socket.emit('selection', {
         type: 'biased'
       });
-    }), 1000);
+    }), 50);
     ee.on("unbiased_pressed", debounce(function () {
       socket.emit('selection', {
         type: 'unbiased'
       });
-    }), 1000);
+    }), 50);
   });
 
 
