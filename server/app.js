@@ -4,8 +4,8 @@ var EventEmitter = require("events").EventEmitter;
 
 var ee = new EventEmitter();
 
-var btnBiased = new GPIO(5, 'in', 'both');
-var btnUnbiased = new GPIO(6, 'in', 'both');
+var btnBiased = new GPIO(5, 'in', 'up');
+var btnUnbiased = new GPIO(6, 'in', 'up');
 // var ledBiased = new GPIO(20, 'out', 'both');
 // var ledUnbiased = new GPIO(21, 'out', 'both');
 //
@@ -14,6 +14,7 @@ var btnUnbiased = new GPIO(6, 'in', 'both');
 
 btnBiased.watch(biasedPressed);
 btnUnbiased.watch(unbiasedPressed);
+
 
 function biasedPressed(err, state) {
   if (state == 1) {
