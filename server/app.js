@@ -6,11 +6,11 @@ var ee = new EventEmitter();
 
 var btnBiased = new GPIO(5, 'in', 'both');
 var btnUnbiased = new GPIO(6, 'in', 'both');
-var ledBiased = new GPIO(20, 'out', 'both');
-var ledUnbiased = new GPIO(21, 'out', 'both');
-
-ledBiased.writeSync(1);
-ledUnbiased.writeSync(1);
+// var ledBiased = new GPIO(20, 'out', 'both');
+// var ledUnbiased = new GPIO(21, 'out', 'both');
+//
+// ledBiased.writeSync(1);
+// ledUnbiased.writeSync(1);
 
 btnBiased.watch(biasedPressed);
 btnUnbiased.watch(unbiasedPressed);
