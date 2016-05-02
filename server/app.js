@@ -1,14 +1,19 @@
 var io = require('socket.io')(8000);
-// var GPIO = require('onoff').Gpio;
+var GPIO = require('onoff').Gpio;
 var EventEmitter = require("events").EventEmitter;
 
 var ee = new EventEmitter();
 
-// var btnBiased = new GPIO(5, 'in', 'both');
-// var btnUnbiased = new GPIO(6, 'in', 'both');
+var btnBiased = new GPIO(5, 'in', 'both');
+var btnUnbiased = new GPIO(6, 'in', 'both');
+var ledBiased = new GPIO(20, 'out', 'both');
+var ledUnbiased = new GPIO(21, 'out', 'both');
 
-// btnBiased.watch(biasedPressed);
-// btnUnbiased.watch(unbiasedPressed);
+ledBiased.writeSync(1);
+ledUnbiased.writeSync(1);
+
+btnBiased.watch(biasedPressed);
+btnUnbiased.watch(unbiasedPressed);
 
 function biasedPressed(err, state) {
   if (state == 1) {
