@@ -89,23 +89,25 @@ $(function () {
     if (isObjective($el)) {
       if (!biasedBool) {
         prompt = "You and the algorithm agree, ";
+        toastr["success"](prompt + "it labels this is as objective!");
       }
       else {
         prompt = "You and the algorithm disagree, ";
+        toastr["error"](prompt + "it labels this is as objective!");
 
       }
-      toastr["success"](prompt + "it labels this is as objective!");
       $el.removeClass('current');
       $el.addClass('unbiased');
     }
     else {
       if (biasedBool) {
         prompt = "You and the algorithm agree, ";
+        toastr["success"](prompt + " it labels this as biased!");
       }
       else {
         prompt = "You and the algorithm disagree, ";
+        toastr["error"](prompt + " it labels this as biased!");
       }
-      toastr["error"](prompt + " it labels this as biased!");
       $el.removeClass('current');
       $el.addClass('biased');
     }
