@@ -1,21 +1,21 @@
 $(function () {
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": true,
-      "positionClass": "toast-top-center",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "3500",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    };
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3500",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
 
   var objective_statements = $("[autoclass2=obj]");
   var subjective_statements = $("[autoclass2=subj]");
@@ -110,10 +110,11 @@ $(function () {
       }
       $el.removeClass('current');
       $el.addClass('biased');
+      $el.addClass('animated infinite bounce');
     }
     quizPos++;
     if (elNext) {
-      $elNext.show();
+      $elNext.fadeIn();
       $elNext.addClass('current');
     } else {
       setControlsDisabled(true);
@@ -147,7 +148,7 @@ $(function () {
       console.log("Got unbiased");
       progressQuiz(false);
     }
-  },50));
+  }, 500));
 
   $btnBiased.on('click', function () {
     socket.emit('debug_press', {type: 'biased'});
@@ -167,6 +168,13 @@ function debounce(func, wait, immediate) {
   var timeout;
   return function () {
     var context = this, args = arguments;
-    func.apply(context, args);
+    var later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
   };
 }

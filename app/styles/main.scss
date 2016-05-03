@@ -106,20 +106,24 @@ html {
 
   .passage {
     text-align: justify;
+    opacity: 1;
     .biased {
       color: $colorBias;
       background-color: $bgColorBias;
       font-size: 20px;
+      opacity:.5;
     }
     .unbiased {
       color: $colorNoBias;
       background-color: $bgColorNoBias;
       font-size: 20px;
+      opacity:.5;
     }
     .current {
       color: $colorCurrent;
       background-color: $bgColorCurrent;
       font-size: 30px;
+      font-weight:400;
     }
   }
 }
