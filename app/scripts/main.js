@@ -46,7 +46,7 @@ $(function () {
 //     }
 //     return biasedBool;
 //   }
-  var socket = io.connect('http://localhost:8000/quiz');
+  var socket = io.connect('http://192.168.1.142:8000/quiz');
 
   var $status = $("#status");
   var $log = $("#log");
