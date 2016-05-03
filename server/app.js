@@ -4,8 +4,8 @@ var EventEmitter = require("events").EventEmitter;
 
 var ee = new EventEmitter();
 
-var btnBiased = new GPIO(5, 'in', 'up');
-var btnUnbiased = new GPIO(6, 'in', 'up');
+var btnBiased = new GPIO(5, 'in', 'rising');
+var btnUnbiased = new GPIO(6, 'in', 'rising');
 // var ledBiased = new GPIO(20, 'out', 'both');
 // var ledUnbiased = new GPIO(21, 'out', 'both');
 //
